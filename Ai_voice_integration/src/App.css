@@ -1,0 +1,21 @@
+.app {
+  text-align: center;
+  margin: 20px;
+}
+
+.chatbot-container {
+  margin: 20px auto;
+  max-width: 600px;
+  text-align: left;
+}
+
+.chat-display {
+  margin-bottom: 20px;
+}
+
+.mic-control button {
+  font-size: 24px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
