@@ -7,7 +7,7 @@ import { Apicontext } from "./apicontext";
 import Ex_prompts from "./Ex_prompts";
 
 const Chatbot = () => {
-    const { name, selectedAvatar, avatars,topic } = useContext(Apicontext);
+    const { name, selectedAvatar, avatars, topic } = useContext(Apicontext);
     const [response, setResponse] = useState("");
     const [isGenerating, setIsGenerating] = useState(false);
     const [userMessage, setUserMessage] = useState("");
@@ -17,7 +17,7 @@ const Chatbot = () => {
 
     const { transcript, resetTranscript, listening, browserSupportsSpeechRecognition } = useSpeechRecognition();
     const timeoutRef = useRef(null);
-    
+
     const handlePromptSelect = (prompt) => {
         handleLLMResponse(prompt);
     };
@@ -48,7 +48,7 @@ const Chatbot = () => {
 `;
 
             const result = await model.generateContent(prompt);
-            const textResponse =  result.response.text();
+            const textResponse = result.response.text();
             return textResponse;
         } catch (err) {
             console.log("Error from AI response:", err);
@@ -111,13 +111,13 @@ const Chatbot = () => {
     }
 
     return (
-        <> 
+        <>
             <Box className="chatbot-container" p={4} borderWidth={1} borderRadius="md" position="relative" minHeight="400px">
-                {chatHistory.length==0 &&       <Ex_prompts onSelectPrompt={handlePromptSelect} /> }
+                {chatHistory.length == 0 && <Ex_prompts onSelectPrompt={handlePromptSelect} />}
                 <VStack spacing={4} mb="60px">
                     {chatHistory.map((chat, index) => (
                         <Box key={index} borderWidth={1} borderRadius="md" p={4} width="100%" mb={4} bg="gray.100">
-                            
+
                             <Box
                                 className="chat-display"
                                 p={4}
@@ -126,7 +126,7 @@ const Chatbot = () => {
                                 boxShadow="md"
                                 bg="gray.50"
                                 maxW="100%" >
-                                <HStack spacing={4} align="start"> 
+                                <HStack spacing={4} align="start">
                                     <Avatar
                                         boxSize="50px"
                                         src={avatars[selectedAvatar]}

@@ -33,7 +33,7 @@ const App = () => {
                         right={0}
                         zIndex={10}
                     >
-                        <Heading as="h1" size="lg">Avatalk</Heading>
+                        <Heading as="h1" size="lg">VocaVerse</Heading>
                         <HStack spacing={4}>
                             <Avatar
                                 boxSize="50px"
@@ -42,7 +42,7 @@ const App = () => {
                             />
                             <VStack align="start" >
                                 <Text fontSize="lg">Hello, {userDetails.name}!</Text>
-                                <Text fontSize="md">Selected Topic: {userDetails.topic}</Text>
+                                <Text fontSize="md">Topic: {userDetails.topic}</Text>
                             </VStack>
                         </HStack>
                     </Flex>

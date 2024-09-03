@@ -2,12 +2,11 @@ import { Heading, Text } from '@chakra-ui/react';
 import React from 'react';
 
 const Ex_prompts = ({ onSelectPrompt }) => {
-    
+
     const prompts = [
         "Summarize the key points of the latest advancements in artificial intelligence, focusing on how they impact healthcare.",
         "I'm writing a blog post about the benefits of remote work. Can you provide a list of five key advantages, with a brief explanation for each?",
         "Explain the concept of blockchain technology in simple terms, suitable for someone with no technical background.",
-        "I need a daily itinerary for a 3-day trip to New York City, including popular attractions, restaurant suggestions, and travel tips.",
         "Provide a comparison between React and Angular, highlighting their pros and cons for building a large-scale web application.",
         "I am preparing for a job interview for a software developer position. What are the top 5 questions I should expect, and how should I answer them?",
         "Create a 5-slide presentation outline on the topic of climate change, including key points for each slide.",

@@ -5,15 +5,14 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import { ChakraProvider } from '@chakra-ui/react';
 import { ApicontextProvider } from './components/apicontext.jsx';
-// import './index.css'
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ApicontextProvider>
-    <ChakraProvider>
-    <App />
-    </ChakraProvider>
+      <ChakraProvider>
+        <App />
+      </ChakraProvider>
     </ApicontextProvider>
   </StrictMode>,
 )
