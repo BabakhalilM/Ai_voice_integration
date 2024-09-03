@@ -13,8 +13,10 @@ const UserForm = ({ onSubmit }) => {
         }
     };
     return (
-        <VStack spacing={4} p={4} borderWidth={1} borderRadius="md">
+        <VStack spacing={4} p={4} borderWidth={2}  maxWidth={"500px"} m={"auto"} borderRadius="md">
+            
             <Input
+                border={"1px solid"}
                 placeholder="Enter your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -34,6 +36,8 @@ const UserForm = ({ onSubmit }) => {
             </Stack>
 
             <Input
+            
+                border={"1px solid"}
                 placeholder="Enter the topic you're interested in"
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}

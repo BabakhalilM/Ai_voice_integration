@@ -252,7 +252,7 @@ const Chatbot = () => {
                     padding={{ base: "5px", sm: "0px" }}
                     flex="1"
                 >
-                    {listening ? "Stop Listening" : "Generate Responce"}
+                    {listening ? "Generate Responce" : "Start Listening"}
                 </Button>
 
                 <Button
