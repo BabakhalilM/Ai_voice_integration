@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, VStack, Input, Avatar, Stack } from '@chakra-ui/react';
+import { Button, VStack, Input, Avatar, Stack, Text } from '@chakra-ui/react';
 import { Apicontext } from './apicontext';
 
 const UserForm = ({ onSubmit }) => {
