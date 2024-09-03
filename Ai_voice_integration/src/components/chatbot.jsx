@@ -142,9 +142,23 @@ const Chatbot = () => {
                                     </VStack>
                                 </HStack>
                             </Box>
-
-                            <HStack mt={4} align="start">
-                                <Text><strong>AI </strong> {chat.bot}</Text>
+                            <HStack spacing={4} align="start">
+                                <Avatar
+                                    name="Robot"
+                                    boxSize="50px"
+                                    src="https://th.bing.com/th/id/OIP.kcYqbY0u4odCSmD_jUI9NgHaHa?rs=1&pid=ImgDetMain"
+                                    alt='https://bit.ly/tioluwani-kolawole'
+                                    borderWidth={2}
+                                    borderColor="blue.500"
+                                />
+                                <VStack align="start" spacing={1}>
+                                    <Text fontWeight="bold" fontSize="lg" color="blue.800">
+                                        AI
+                                    </Text>
+                                    <Text fontSize="md" color="gray.700">
+                                        {chat.bot}
+                                    </Text>
+                                </VStack>
                             </HStack>
                             <Button
                                 mt={2}
