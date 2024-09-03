@@ -19,6 +19,7 @@ const UserForm = ({ onSubmit }) => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
+            <Text>Selet Your Avatar To Represent you</Text>
             <Stack direction="row" spacing={4}>
                 {Object.keys(avatars).map((key) => (
                     <Avatar
