@@ -1,47 +1,35 @@
-import React, { useContext, useState } from 'react';
-import {
-    Button, Box, Text, VStack, HStack, Input, Avatar, Stack, Image
-} from '@chakra-ui/react';
+import React, { useContext } from 'react';
+import { Button, VStack, Input, Avatar, Stack } from '@chakra-ui/react';
 import { Apicontext } from './apicontext';
 
 const UserForm = ({ onSubmit }) => {
-    const { name,setName
-        ,selectedAvatar,setSelectedAvatar
-        ,topic,setTopic,
-        handleSubmit} =useContext(Apicontext);
+    const { name, setName, selectedAvatar, setSelectedAvatar, topic, setTopic, avatars } = useContext(Apicontext);
 
+    const handleSubmit = () => {
+        if (name && selectedAvatar && topic) {
+            onSubmit({ name, avatar: selectedAvatar, topic });
+        } else {
+            alert("Please fill out all fields.");
+        }
+    };
     return (
         <VStack spacing={4} p={4} borderWidth={1} borderRadius="md">
-            <Text fontSize="xl">Enter your details</Text>
             <Input
                 placeholder="Enter your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
-
-            <Text>Select an avatar</Text>
             <Stack direction="row" spacing={4}>
-                <Avatar
-                    name="Avatar 1"
-                    src="https://bit.ly/dan-abramov"
-                    cursor="pointer"
-                    border={selectedAvatar === 'avatar1' ? "2px solid teal" : "none"}
-                    onClick={() => setSelectedAvatar('avatar1')}
-                />
-                <Avatar
-                    name="Avatar 2"
-                    src="https://bit.ly/tioluwani-kolawole"
-                    cursor="pointer"
-                    border={selectedAvatar === 'avatar2' ? "2px solid teal" : "none"}
-                    onClick={() => setSelectedAvatar('avatar2')}
-                />
-                <Avatar
-                    name="Avatar 3"
-                    src="https://bit.ly/kent-c-dodds"
-                    cursor="pointer"
-                    border={selectedAvatar === 'avatar3' ? "2px solid teal" : "none"}
-                    onClick={() => setSelectedAvatar('avatar3')}
-                />
+                {Object.keys(avatars).map((key) => (
+                    <Avatar
+                        key={key}
+                        name={key}
+                        src={avatars[key]}
+                        cursor="pointer"
+                        border={selectedAvatar === key ? "3px solid green" : "none"}
+                        onClick={() => setSelectedAvatar(key)}
+                    />
+                ))}
             </Stack>
 
             <Input

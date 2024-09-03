@@ -9,7 +9,7 @@ const Avatar = ({ text }) => {
     const fetchAvatar = async () => {
       try {
         const response = await getAvatar(text);
-        setAvatarUrl(response.url);  // The URL from the API
+        setAvatarUrl(response.url);  
       } catch (error) {
         console.error("Error fetching avatar", error);
       }
