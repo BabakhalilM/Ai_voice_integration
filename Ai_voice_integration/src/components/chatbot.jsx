@@ -21,11 +21,8 @@ const Chatbot = () => {
     const handlePromptSelect = (prompt) => {
         handleLLMResponse(prompt);
     };
-    useEffect(() => {
-        if (listening && transcript) {
-            clearTimeout(timeoutRef.current);
-        }
 
+    useEffect(() => {
         if (!listening && transcript) {
             timeoutRef.current = setTimeout(() => {
                 handleLLMResponse(transcript);
@@ -35,17 +32,16 @@ const Chatbot = () => {
         return () => clearTimeout(timeoutRef.current);
     }, [transcript, listening]);
 
-
     const responceai = async (input) => {
         setUserMessage("");
         try {
             const genAI = new GoogleGenerativeAI(import.meta.env.VITE_API_KEY);
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
             const prompt = `
-  Please generate a clear and concise response based on ${topic} the following input. 
-  Ensure that the response is free of any special characters (*, #, $, etc.) and avoid unnecessary technical jargon. 
-  The tone should be friendly and informative. Here is the input: ${input}
-`;
+                Please generate a clear and concise response based on ${topic}. 
+                Ensure that the response is free of any special characters (*, #, $, etc.) and avoid unnecessary technical jargon. 
+                The tone should be friendly and informative. Here is the input: ${input}
+            `;
 
             const result = await model.generateContent(prompt);
             const textResponse = result.response.text();
@@ -95,15 +91,28 @@ const Chatbot = () => {
         setIsSpeaking(false);
     };
 
+    const handleCancelGeneration = () => {
+        stopSpeaking();
+        SpeechRecognition.stopListening();
+        resetTranscript(); 
+        setUserMessage("");
+        setIsGenerating(false);
+    };
+
     const handleListenToggle = () => {
         if (listening) {
             SpeechRecognition.stopListening();
             setUserMessage(transcript);
-            clearTimeout(timeoutRef.current);
         } else {
             resetTranscript();
             SpeechRecognition.startListening({ continuous: true });
         }
+    };
+
+    const handleClearPrompt = () => {
+        resetTranscript(); 
+        setUserMessage(""); 
+        SpeechRecognition.stopListening(); 
     };
 
     if (!browserSupportsSpeechRecognition) {
@@ -113,11 +122,10 @@ const Chatbot = () => {
     return (
         <>
             <Box className="chatbot-container" p={4} borderWidth={1} borderRadius="md" position="relative" minHeight="400px">
-                {chatHistory.length == 0 && <Ex_prompts onSelectPrompt={handlePromptSelect} />}
+                {chatHistory.length === 0 && <Ex_prompts onSelectPrompt={handlePromptSelect} />}
                 <VStack spacing={4} mb="60px">
                     {chatHistory.map((chat, index) => (
                         <Box key={index} borderWidth={1} borderRadius="md" p={4} width="100%" mb={4} bg="gray.100">
-
                             <Box
                                 className="chat-display"
                                 p={4}
@@ -125,7 +133,8 @@ const Chatbot = () => {
                                 borderRadius="md"
                                 boxShadow="md"
                                 bg="gray.50"
-                                maxW="100%" >
+                                maxW="100%"
+                            >
                                 <HStack spacing={4} align="start">
                                     <Avatar
                                         boxSize="50px"
@@ -142,17 +151,17 @@ const Chatbot = () => {
                                     </VStack>
                                 </HStack>
                             </Box>
-                            <HStack spacing={4} align="start">
+                            <HStack ml={2} mt={2} spacing={4} align="start">
                                 <Avatar
                                     name="Robot"
                                     boxSize="50px"
                                     src="https://th.bing.com/th/id/OIP.kcYqbY0u4odCSmD_jUI9NgHaHa?rs=1&pid=ImgDetMain"
-                                    alt='https://bit.ly/tioluwani-kolawole'
+                                    alt="Robot Avatar"
                                     borderWidth={2}
                                     borderColor="blue.500"
                                 />
-                                <VStack align="start" spacing={1}>
-                                    <Text fontWeight="bold" fontSize="lg" color="blue.800">
+                                <VStack  align="start" spacing={2}>
+                                    <Text  fontWeight="bold" fontSize="lg" color="blue.800">
                                         AI
                                     </Text>
                                     <Text fontSize="md" color="gray.700">
@@ -211,28 +220,61 @@ const Chatbot = () => {
                         </Box>
                     )}
 
-
                     {isGenerating && (
                         <Box mb={4}>
-                            <Spinner size="sm" /> <Text>Generating To response...</Text>
+                            <Spinner size="sm" /> <Text>Generating Response...</Text>
                         </Box>
                     )}
                 </VStack>
-
             </Box>
-            <Box mt={8} >
+
+            <Box
+                mt={8}
+                paddingTop={6}
+                display="flex"
+                flexDirection={{ base: "column", sm: "row" }}
+                gap={4}
+                minHeight={12}
+                // border={"1px solid red"}
+                
+                position="fixed"
+                bottom={0}
+                left={4}
+                width="calc(100% - 32px)"
+                zIndex="1000"
+                bg={"white"}
+            >
                 <Button
-                    // border={"solid red"}
                     onClick={handleListenToggle}
                     leftIcon={listening ? <FaMicrophoneSlash /> : <FaMicrophone />}
                     colorScheme="teal"
                     variant="solid"
-                    position="fixed"
-                    bottom="0px"
-                    width="calc(100% - 32px)"
-                    left="16px"
-                    zIndex="1000"             >
+                    padding={{ base: "5px", sm: "0px" }}
+                    flex="1"
+                >
                     {listening ? "Stop Listening" : "Start Listening"}
+                </Button>
+
+                <Button
+                    onClick={handleClearPrompt}
+                    colorScheme="teal"
+                    variant="solid"
+                    flex="1"
+                    padding={{ base: "5px", sm: "0px" }}
+                    isDisabled={!listening}
+                >
+                    Clear Prompt
+                </Button>
+
+                <Button
+                    onClick={handleCancelGeneration}
+                    colorScheme="red"
+                    variant="solid"
+                    flex="1"
+                    padding={{ base: "5px", sm: "0px" }}
+                    isDisabled={!listening}
+                >
+                    Cancel Generation
                 </Button>
             </Box>
         </>

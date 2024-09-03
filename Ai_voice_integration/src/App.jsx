@@ -41,8 +41,8 @@ const App = () => {
                                 alt="Avatar"
                             />
                             <VStack align="start" >
-                                <Text fontSize="lg">Hello, {userDetails.name}!</Text>
-                                <Text fontSize="md">Topic: {userDetails.topic}</Text>
+                                <Text fontSize="lg" display={{ base: "none", sm: "block" }} >Hello, {userDetails.name}!</Text>
+                                <Text fontSize="md"  display={{ base: "none", sm: "block" }} >Topic: {userDetails.topic}</Text>
                             </VStack>
                         </HStack>
                     </Flex>
